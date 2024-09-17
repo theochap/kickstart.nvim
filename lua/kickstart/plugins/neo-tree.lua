@@ -12,6 +12,8 @@ return {
   cmd = 'Neotree',
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>ntl', ':Neotree position=left<CR>', desc = 'Opens neotree on the left', silent = true },
+    { '<leader>ntf', ':Neotree position=float<CR>', desc = 'Opens neotree as float', silent = true },
   },
   opts = {
     filesystem = {
