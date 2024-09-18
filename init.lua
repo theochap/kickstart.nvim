@@ -676,12 +676,17 @@ require('lazy').setup({
         rust_analyzer = {
           settings = {
             rust_analyzer = {
-              rust = {
-                analzyerTargetDir = 'target/rust-analyzer-check',
+              server = {
+                extraEnv = {
+                  ROCKSDB_LIB_DIR = '/usr/lib/',
+                },
               },
               cargo = {
                 extraEnv = {
                   SKIP_GUEST_BUILD = '1',
+                  ROCKSDB_LIB_DIR = '/usr/lib/',
+                  RUSTFLAGS = '-Z threads=8 -Z tune-cpu=machine -C opt-level=1',
+                  CARGO_TARGET_DIR = 'target/rust-analyzer-check',
                 },
               },
             },
@@ -1014,6 +1019,26 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'ayu_mirage',
+          sections = {
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff', 'diagnostics', sources = { 'nvim_diagnostic_workspace' } },
+            lualine_c = { 'filename' },
+            lualine_x = { 'encoding', 'fileformat', 'filetype' },
+            lualine_y = { 'progress' },
+            lualine_z = { 'location' },
+          },
+        },
+      }
+    end,
   },
 
   --
